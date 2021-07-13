@@ -31,6 +31,8 @@ io.on('connection',socket =>{
         console.log(vcUsers);
     })*/
     socket.on('callUser', (data)=>{
+        console.log("calling details")
+        console.log(data)
         if([data.userToCall])io.to(vcUsers[data.userToCall]).emit('hey', {signal: data.signalData, from: data.from})
         else socket.emit("notOnline");
     })
@@ -63,6 +65,7 @@ io.on('connection',socket =>{
     socket.on('disconnect', () => {
         delete userss[socket.id];
         delete vcUsers[socket.handshake.query.team+"*****"+socket.handshake.query.name];
+        console.log(socket.id+'disconnected')
         console.log(vcUsers);
     })
     /*socket.on("callUser", (data) => {
